@@ -1,0 +1,48 @@
+html {
+    // 基准字体不加粗
+    font-weight: 400; // 400 is `normal`, 700 is `bold`
+    // 基准字体大小为16px
+    font-size: 16px;
+
+    // 背景色为白色
+    background: #fff;
+
+    // 自定义滚动条
+    // 仅限Webkit内核
+    &,
+    & * {
+        &::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(100, 100, 100, .1);
+            transition: all 1s;
+        }
+        &::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            background-color: rgba(120, 120, 120, .3);
+        }
+        &:hover::-webkit-scrollbar-thumb,
+        &::-webkit-scrollbar-thumb:hover {
+            background: rgba(100, 100, 100, .5);
+        }
+    }
+
+    // 设置宽高为视野宽高
+    &,
+    body {
+        width: 100%;
+        height: 100%;
+
+        margin: 0;
+        padding: 0;
+
+    }
+
+    // 盒子模型选用border-box
+    *,
+    *:before,
+    *:after {
+        box-sizing: border-box;
+    }
+}
