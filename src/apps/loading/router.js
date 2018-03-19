@@ -8,5 +8,8 @@ export default new Router({
     routes: [{
         path: '/meizu',
         component: () => import('./meizu/Meizu.vue')
+    }, {
+        path: '/windows10',
+        component: () => import('./Windows10/Windows10.vue')
     }]
 });
