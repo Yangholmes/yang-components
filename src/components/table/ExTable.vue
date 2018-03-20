@@ -36,6 +36,17 @@ export default {
     },
     computed: {
         columns() {
+            res.data[0].columns[0].render = (h, params) => {
+                let key = params.column.key;
+                return h('p', {
+                    domProps: {
+                        innerHTML: params.row[key]
+                    },
+                    style: {
+                        color: 'rgba(100, 70, 200, .9)'
+                    }
+                });
+            };
             return res.data[0].columns;
         },
         data() {
@@ -49,7 +60,6 @@ export default {
     },
     methods: {
         genKeys(val) {
-            console.log(val);
             this.keys = val;
         }
     }
@@ -64,7 +74,6 @@ export default {
     font-family: Microsoft YaHei, Arial, sans-serif;
     table {
         font-size: .75em;
-        table-layout:fixed;
         border-collapse: collapse;
         border: 1px solid #e9eaec;
     }

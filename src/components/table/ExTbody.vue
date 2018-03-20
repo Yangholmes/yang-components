@@ -2,17 +2,27 @@
     <tbody class="ex-table-body">
         <tr v-for="(row, index) in data" :key="index">
             <td v-for="(val, k) in keys" :key="k"
-                :class="{hover: (hKey === k) || (hIndex === index)}"
+                :class="{hover: (hKey === k) || (hIndex === index), odd: !val.colStripe}"
                 @mouseover="onHover(1, index, k)"
                 @mouseleave="onHover(0, index, k)">
-                {{row[val.key]}}
+                <!-- <span>{{val.colStripe}}</span> -->
+                <ExTcell
+                    :row="row"
+                    :theKey="val.key"
+                    :index="index"
+                    :column="val"></ExTcell>
             </td>
         </tr>
     </tbody>
 </template>
 
 <script>
+import ExTcell from './ExTcell.vue';
+
 export default {
+    components: {
+        ExTcell
+    },
     props: {
         data: {
             type: Array,
@@ -26,9 +36,6 @@ export default {
                 return [];
             }
         }
-    },
-    mounted() {
-
     },
     data() {
         return {
@@ -59,11 +66,17 @@ tbody.ex-table-body {
             border-bottom: 1px solid #e9eaec;
             &:last-child {
                 border-right: none;
-                border-bottom: none;
+            }
+            &.odd {
+                background-color: #fee;
             }
             &.hover {
                 background-color: #ebf7ff;
             }
+            transition: background-color .2s ease-in-out;
+        }
+        &:last-child {
+            border-bottom: none;
         }
     }
 }

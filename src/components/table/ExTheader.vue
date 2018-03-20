@@ -1,7 +1,9 @@
 <template lang="html">
     <thead class="ex-table-header">
         <tr v-for="(value, key) in header" :key="key">
-            <th v-for="(val, ke) in value" :key="ke" :rowspan="val.row" :colspan="val.col">{{val.title}}</th>
+            <th v-for="(val, ke) in value" :key="ke" :rowspan="val.row" :colspan="val.col">
+                <span :style="`width: ${val.width || '1.5em'}`">{{val.title}}</span>
+            </th>
         </tr>
     </thead>
 </template>
@@ -25,6 +27,8 @@ export default {
             header: [],
             // 当前深度
             deep: 0,
+            // 列斑马线
+            colStripe: true,
             // keys
             keys: [],
             // 总行数
@@ -35,6 +39,7 @@ export default {
         init() {
             this.genHeader(this.planTree(this.columns, 0));
             this.$emit('genKeys', this.keys);
+            console.log(this.keys);
         },
         /**
          * 遍历树，计算每个节点的 rowspan 和 colspan，返回新树
@@ -69,10 +74,12 @@ export default {
                     child: null
                 }));
                 if (!arr[i].child || !arr[i].child.length) {
+                    arr[i].colStripe = this.colStripe;
                     this.keys.push(arr[i]); // 叶节点的 key, 用于数据渲染
                 }
                 else {
                     this.deep += 1;
+                    this.deep === 2 && (this.colStripe = !this.colStripe);
                     this.genHeader(arr[i].child);
                     this.deep -= 1;
                 }
@@ -93,6 +100,9 @@ thead.ex-table-header {
         &:last-child {
             border-right: none;
             border-bottom: none;
+        }
+        span {
+            display: inline-block;
         }
     }
 }
