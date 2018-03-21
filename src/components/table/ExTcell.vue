@@ -1,5 +1,5 @@
 <template lang="html">
-    <span class="ex-table-cell">
+    <span class="ex-table-cell"  :style="`width: ${column.width || (column.col * 5) + 'em'}`">
         <span v-if="type === 'normal'">{{row[theKey]}}</span>
         <Cell
             v-if="type === 'render'"

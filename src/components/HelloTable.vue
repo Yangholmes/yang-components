@@ -1,80 +1,52 @@
 <template lang="html">
-    <ExTable :columns="columns"></ExTable>
+    <div class="hello-ex-table">
+        <ExTable class="ex-table" :columns="columns" :data="data"></ExTable>
+    </div>
 </template>
 
 <script>
 import ExTable from '@/components/table';
+
+import res from './table/temp/columns.json';
+
 export default {
     components: {
         ExTable
     },
+    computed: {
+        columns() {
+            res.data[0].columns[0].render = (h, params) => {
+                let key = params.column.key;
+                return h('span', {
+                    domProps: {
+                        innerHTML: params.row[key]
+                    },
+                    style: {
+                        color: '#000'
+                    }
+                });
+            };
+            return res.data[0].columns;
+        },
+        data() {
+            return res.data[0].data;
+        }
+    },
     data() {
-        return {
-            columns: [{
-                title: '姓名',
-                key: 'name',
-                children: []
-            }, {
-                title: 'Mark核实',
-                key: 'markVerify',
-                children: [{
-                    title: '红绿灯',
-                    key: 'verifyRgb',
-                    children: [{
-                        title: 'V1',
-                        key: 'verifyRgbV1',
-                        children: []
-                    }, {
-                        title: 'V2',
-                        key: 'verifyRgbV2',
-                        children: []
-                    }]
-                }, {
-                    title: '警示牌',
-                    key: 'verifyAlert',
-                    children: [{
-                        title: 'V1',
-                        key: 'verifyAlertV1',
-                        children: []
-                    }, {
-                        title: 'V2',
-                        key: 'verifyAlertV2',
-                        children: []
-                    }]
-                }]
-            }, {
-                title: 'Mark制作',
-                key: 'markMake',
-                children: [{
-                    title: '红绿灯',
-                    key: 'makeRgb',
-                    children: [{
-                        title: 'V1',
-                        key: 'makeRgbV1',
-                        children: []
-                    }, {
-                        title: 'V2',
-                        key: 'makeRgbV2',
-                        children: []
-                    }]
-                }, {
-                    title: '警示牌',
-                    key: 'makeAlert',
-                    children: [{
-                        title: 'V1',
-                        key: 'makeAlertV1',
-                        children: []
-                    }, {
-                        title: 'V2',
-                        key: 'makeAlertV2',
-                        children: []
-                    }]
-                }]
-            }]
-        };
+        return {};
     }
 };
 </script>
 
 <style lang="less">
+.hello-ex-table {
+    width: 100%;
+    height: 100%;
+    padding: 2em;
+    position: absolute;
+    .ex-table {
+        width: 100%;
+        height: 500px;
+    }
+}
 </style>

@@ -76,7 +76,9 @@ tbody.ex-table-body {
             transition: background-color .2s ease-in-out;
         }
         &:last-child {
-            border-bottom: none;
+            &, td {
+                border-bottom: none;
+            }
         }
     }
 }
