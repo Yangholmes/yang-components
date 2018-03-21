@@ -1,7 +1,9 @@
 /**
- * [name description]
+ * Renderer, base on JSX
+ * refs[https://github.com/iview/iview/blob/2.0/src/components/table/expand.js]
+ *
  * @file
- * @author
+ * @author iView
  */
 export default {
     name: 'exTableRenderer',
