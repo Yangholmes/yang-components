@@ -112,7 +112,7 @@ export default {
             for (let i = 0; i < arr.length; i++) {
                 !header[this.deep] && header.push([]);
                 header[this.deep].push(Object.assign({}, arr[i], {
-                    row: arr[i].child.length ? 1 : this.rows - arr[i].row,
+                    row: (arr[i].child && arr[i].child.length) ? 1 : this.rows - arr[i].row,
                     child: null
                 }));
                 if (!arr[i].child || !arr[i].child.length) {
@@ -153,7 +153,8 @@ export default {
 .ex-table {
     position: relative;
     overflow: hidden;
-    min-width: 100%;
+    // min-width: 100%;
+    width: min-content;
     height: 100%;
     color: #495060;
     font-size: 16px;
