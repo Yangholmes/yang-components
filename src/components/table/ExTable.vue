@@ -1,25 +1,28 @@
 <template lang="html">
     <div class="ex-table" :id="id">
+        <!-- 固定表头 -->
         <div ref="headerFixed" class="ex-table-header-fixed" :id="id + '-header'">
             <table>
-                <ExTheader :header="header"></ExTheader>
+                <ExTheader :header="header" :cellWidth="cellWidth"></ExTheader>
             </table>
         </div>
-        <div class="ex-table-col-fixed" :id="id + '-col-fixed'">
-                <div class="ex-table-header-fixed" :id="id + '-header'">
-                    <table>
-                        <ExTheader :header="fixedHeader" :style="`line-height: calc( ${headerHeight} - 3px )`"></ExTheader>
-                    </table>
-                </div>
-                <div ref="colFixed" class="ex-table-body" :id="id + '-col-fixed'" :style="`height: calc( 100% - ${headerHeight} ); overflow: hidden;`">
-                    <table>
-                        <ExTbody ref="colFixed" :data="data" :keys="fixedKeys"></ExTbody>
-                    </table>
-                </div>
+        <!-- 固定列首 -->
+        <div class="ex-table-col-fixed" :id="id + '-col-fixed'" :style="`height: ${bodyHeight + headerHeight}px;`">
+            <div class="ex-table-header-fixed" :id="id + '-header'">
+                <table>
+                    <ExTheader :header="fixedHeader" :style="`line-height: calc( ${headerHeight}px - 3px )`" :cellWidth="cellWidth"></ExTheader>
+                </table>
+            </div>
+            <div ref="colFixed" class="ex-table-body" :id="id + '-col-fixed'" :style="`height: calc( 100% - ${headerHeight}px ); overflow: hidden;`">
+                <table>
+                    <ExTbody ref="colFixed" :data="data" :keys="fixedKeys" :cellWidth="cellWidth"></ExTbody>
+                </table>
+            </div>
         </div>
-        <div ref="body" class="ex-table-body" :id="id + '-body'" :style="`height: calc( 100% - ${headerHeight} )`" @scroll="onBodyScoll">
+        <!-- 表格数据 -->
+        <div ref="body" class="ex-table-body" :id="id + '-body'" :style="`height: calc( 100% - ${headerHeight}px )`" @scroll="onBodyScoll">
             <table>
-                <ExTbody :data="data" :keys="keys"></ExTbody>
+                <ExTbody :data="data" :keys="keys" :cellWidth="cellWidth"></ExTbody>
                 <ExTfooter></ExTfooter>
             </table>
         </div>
@@ -49,12 +52,17 @@ export default {
             default() {
                 return [];
             }
+        },
+        cellWidth: {
+            type: String,
+            default: '5em'
         }
     },
     data() {
         return {
             id: 'ex-table-' + Math.ceil(Math.random() * 100000),
             headerHeight: 0,
+            bodyHeight: 0,
             // 表头
             header: [],
             // 当前深度
@@ -138,7 +146,11 @@ export default {
         align() {
             this.$nextTick(() => {
                 let header = this.$refs['headerFixed'];
-                this.headerHeight = window.getComputedStyle(header).height;
+                this.headerHeight = window.getComputedStyle(header).height.slice(0, -2) * 1;
+                this.$nextTick(() => {
+                    let body = this.$refs['body'];
+                    this.bodyHeight = body.clientHeight;
+                });
             });
         },
         onBodyScoll(event) {
@@ -165,7 +177,7 @@ export default {
         overflow: hidden;
     }
     .ex-table-col-fixed {
-        height: calc( 100% - 8px ); // 此处8px是滚动条高度，使用时按照实际情况修改
+        // height: calc( 100% - 8px ); // 此处8px是滚动条高度，使用时按照实际情况修改
         overflow: hidden;
         box-shadow: 2px 0 6px -2px rgba(0, 0, 0, .2);
         position: absolute;

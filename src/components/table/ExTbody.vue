@@ -10,7 +10,8 @@
                     :row="row"
                     :theKey="val.key"
                     :index="index"
-                    :column="val"></ExTcell>
+                    :column="val"
+                    :cellWidth="cellWidth"></ExTcell>
             </td>
         </tr>
     </tbody>
@@ -35,7 +36,8 @@ export default {
             default() {
                 return [];
             }
-        }
+        },
+        cellWidth: String
     },
     data() {
         return {

@@ -1,5 +1,5 @@
 <template lang="html">
-    <span class="ex-table-cell"  :style="`width: ${column.width || (column.col * 5) + 'em'}`">
+    <span class="ex-table-cell" :style="'width: ' + (column.width || `calc( ${column.col} * ${cellWidth} )`)">
         <span v-if="type === 'normal'">{{row[theKey]}}</span>
         <Cell
             v-if="type === 'render'"
@@ -21,7 +21,8 @@ export default {
         row: Object,
         theKey: String,
         index: Number,
-        column: Object
+        column: Object,
+        cellWidth: String
     },
     computed: {
         type() {

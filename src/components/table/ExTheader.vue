@@ -2,7 +2,7 @@
     <thead class="ex-table-header">
         <tr v-for="(value, key) in header" :key="key">
             <th v-for="(val, ke) in value" :key="ke" :rowspan="val.row" :colspan="val.col">
-                <span :style="`width: ${val.width || (val.col * 5) + 'em'}`">{{val.title}}</span>
+                <span :style="'width: ' + (val.width || `calc( ${val.col} * ${cellWidth} )`)">{{val.title}}</span>
             </th>
         </tr>
     </thead>
@@ -16,7 +16,8 @@ export default {
             default() {
                 return [];
             }
-        }
+        },
+        cellWidth: String
     },
     data() {
         return {
