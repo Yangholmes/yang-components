@@ -78,6 +78,18 @@ export default {
             rows: 0
         };
     },
+    watch: {
+        columns: {
+            handler() {
+                let columns = this.planTree(this.columns, 0);
+                let header = this.genHeader(columns);
+                this.header = header.header;
+                this.keys = header.keys;
+                this.align();
+            },
+            deep: true
+        }
+    },
     mounted() {
         this.init();
     },
@@ -165,7 +177,7 @@ export default {
 .ex-table {
     position: relative;
     overflow: hidden;
-    // min-width: 100%;
+    max-width: 100%;
     width: min-content;
     height: 100%;
     color: #495060;
