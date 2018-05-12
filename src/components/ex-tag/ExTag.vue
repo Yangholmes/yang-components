@@ -21,10 +21,10 @@
 
 <script>
 export default {
-    model: {
-        prop: 'value',
-        event: 'modified'
-    },
+    // model: {
+    //     prop: 'value',
+    //     event: 'modified'
+    // },
     props: {
         value: String || Number,
         editable: {
@@ -75,7 +75,7 @@ export default {
             this.$emit('focus', [event, this.value]);
         },
         onTagBlur(event) {
-            this.modifyVal(event);
+            this.editing && this.modifyVal(event);
             this.$emit('blur', [event, this.value]);
         },
         onTagKeydown(event) {

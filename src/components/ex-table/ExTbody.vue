@@ -3,8 +3,7 @@
         <tr v-for="(row, index) in data" :key="index">
             <td v-for="(val, k) in keys" :key="k"
                 :class="{hover: (hKey === k) || (hIndex === index), odd: !val.colStripe}"
-                @mouseover="onHover(1, index, k)"
-                @mouseleave="onHover(0, index, k)">
+                @click="onHover(1, index, k, val)">
                 <!-- <span>{{val.colStripe}}</span> -->
                 <ExTcell
                     :row="row"
@@ -46,7 +45,10 @@ export default {
         };
     },
     methods: {
-        onHover(type, index, key) {
+        onHover(type, index, key, val) {
+            if (val.fixed) {
+                return false;
+            }
             if (!type) {
                 this.hKey = '';
                 this.hIndex = null;
