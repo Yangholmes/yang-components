@@ -8,6 +8,10 @@ Vue.use(Router);
 export default new Router({
     mode: 'history',
     routes: [{
+        path: '/',
+        name: 'HelloTable',
+        component: HelloTable
+    }, {
         path: '/table',
         name: 'HelloTable',
         component: HelloTable
