@@ -21,10 +21,10 @@
 
 <script>
 export default {
-    // model: {
-    //     prop: 'value',
-    //     event: 'modified'
-    // },
+    model: {
+        prop: 'value',
+        event: 'modified'
+    },
     props: {
         value: String || Number,
         editable: {

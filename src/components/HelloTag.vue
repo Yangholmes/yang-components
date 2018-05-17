@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="hello-ex-tag">
-        <ExTag  v-for="(tag, index) in tags" :key="index" v-model="tag.title" editable closable></ExTag>
+        <ExTag  v-for="(tag, index) in tags" :key="index" v-model="tag.title" border="solid" editable closable></ExTag>
     </div>
 </template>
 
@@ -29,8 +29,11 @@ export default {
 </script>
 
 <style lang="less">
-.hello-tag {
+.hello-ex-tag {
     width: 100%;
     height: 100%;
+    & > * {
+        margin: 1em;
+    }
 }
 </style>
