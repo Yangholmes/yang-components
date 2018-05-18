@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import HelloTable from '@/components/HelloTable';
 import HelloTag from '@/components/HelloTag';
+import HelloExtend from '@/components/HelloExtend';
 
 Vue.use(Router);
 
@@ -19,5 +20,9 @@ export default new Router({
         path: '/tag',
         name: 'HelloTag',
         component: HelloTag
+    }, {
+        path: '/extend',
+        name: 'HelloExtend',
+        component: HelloExtend
     }]
 });
