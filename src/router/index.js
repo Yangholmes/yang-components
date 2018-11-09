@@ -3,11 +3,12 @@ import Router from 'vue-router';
 import HelloTable from '@/components/HelloTable';
 import HelloTag from '@/components/HelloTag';
 import HelloExtend from '@/components/HelloExtend';
+import HOC from '@/components/HOC';
 
 Vue.use(Router);
 
 export default new Router({
-    mode: 'history',
+    // mode: 'history',
     routes: [{
         path: '/',
         name: 'HelloTable',
@@ -24,5 +25,9 @@ export default new Router({
         path: '/extend',
         name: 'HelloExtend',
         component: HelloExtend
+    }, {
+        path: '/HOC',
+        name: 'HOC',
+        component: HOC
     }]
 });
