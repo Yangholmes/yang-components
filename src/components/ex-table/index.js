@@ -5,5 +5,5 @@
  * @file ExTable index.js
  * @author Yangholmes
  */
-import ExTable from './Extable.vue';
+import ExTable from './ExTable';
 export default ExTable;

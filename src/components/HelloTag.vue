@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="hello-ex-tag">
-        <ExTag  v-for="(tag, index) in tags" :key="index" v-model="tag.title" border="solid" editable closable></ExTag>
+        <ExTag v-for="(tag, index) in tags" :key="index" v-model="tag.title" border="solid" editable closable></ExTag>
     </div>
 </template>
 
