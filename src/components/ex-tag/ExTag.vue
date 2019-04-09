@@ -116,8 +116,9 @@ export default {
     .tag-shadow {
         display: inline-block;
         position: absolute;
-        top: -100%;
-        right: -100%;
+        visibility: hidden;
+        // top: -100%;
+        // right: -100%;
         z-index: -999;
     }
     .tag-editor {

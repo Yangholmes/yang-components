@@ -1,6 +1,9 @@
 <template lang="html">
     <div class="hello-ex-tag">
-        <ExTag v-for="(tag, index) in tags" :key="index" v-model="tag.title" border="solid" editable closable></ExTag>
+        <ExTag border="solid" editable closable
+            v-for="(tag, index) in tags" :key="index"
+            v-model="tag.title"
+            @suicide="onDelete(index)"></ExTag>
     </div>
 </template>
 
@@ -24,6 +27,11 @@ export default {
                 {title: '标签7'}
             ]
         };
+    },
+    methods: {
+        onDelete(index) {
+            console.log(index);
+        }
     }
 };
 </script>

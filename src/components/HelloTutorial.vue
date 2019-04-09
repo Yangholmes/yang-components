@@ -3,7 +3,7 @@
         <p>Hello Tutorial!</p>
         <Tutorial>
             <h1>Welcome</h1>
-            <Lesson :tab="1">Start!</Lesson>
+            <Lesson :tab="4">Start!</Lesson>
             <Lesson :tab="2">
                 <ExTag v-for="(tag, index) in tags" :key="index" v-model="tag.title" border="solid" editable closable></ExTag>
             </Lesson>
@@ -39,5 +39,7 @@ export default {
 </script>
 
 <style>
-
+#hello-tutorial {
+    width: 70%;
+}
 </style>
