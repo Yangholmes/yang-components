@@ -33,7 +33,7 @@ export default {
     &.float {
         z-index: 10001;
         background: #fff;
-        box-shadow: 0 0 3px 0 #ccc;
+        box-shadow: 0 0 3px 2px #ccc;
         border-radius: 5px;
     }
 }
