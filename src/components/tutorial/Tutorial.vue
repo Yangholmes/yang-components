@@ -1,8 +1,10 @@
 <template>
     <div class="tutorial">
         <slot></slot>
-        <Tip :tip="lessons[current] && lessons[current].tip"
-            :tipBoundary="tipBoundary"
+        <Tip v-if="show"
+            :lessons="lessons"
+            :tab="current" :tipBoundary="tipBoundary"
+            @skip="onSkipTutorial" @complete="onComplete"
             @prev="onPrevTab" @next="onNextTab"></Tip>
     </div>
 </template>
@@ -12,6 +14,15 @@ import tutorialMask from './tutorialMask.js';
 import Tip from './Tip';
 
 export default {
+    model: {
+        prop: 'show',
+        event: 'change'
+    },
+    props: {
+        show: {
+            type: Boolean
+        }
+    },
     components: {
         Tip
     },
@@ -21,7 +32,7 @@ export default {
     methods: {
         init() {
             window.addEventListener('resize', this.onWindowResize);
-            this.mask = tutorialMask(false);
+            this.mask = tutorialMask(!this.show);
             this.queryLessons();
             this.onTab(0);
         },
@@ -51,16 +62,53 @@ export default {
             let direction = ['top', 'right', 'bottom', 'left'].reduce((a, p) => {
                 return lesson.boundary[p] > lesson.boundary[a] ? p : a;
             });
-            Object.assign(this.tipBoundary, {
-                top: lesson.boundary.top + lesson.boundary.height,
-                left: lesson.boundary.left + lesson.boundary.width / 2 - this.tipBoundary.width / 2
-            });
+            let offset = {top: 0, left: 0};
+            switch (direction) {
+                case 'top':
+                    offset = {
+                        top: lesson.boundary.top - this.tipBoundary.height,
+                        left: lesson.boundary.left + lesson.boundary.width / 2 - this.tipBoundary.width / 2
+                    };
+                    break;
+                case 'right':
+                    offset = {
+                        top: lesson.boundary.top + lesson.boundary.height / 2 - this.tipBoundary.height / 2,
+                        left: lesson.boundary.left + lesson.boundary.width
+                    };
+                    break;
+                case 'bottom':
+                    offset = {
+                        top: lesson.boundary.top + lesson.boundary.height,
+                        left: lesson.boundary.left + lesson.boundary.width / 2 - this.tipBoundary.width / 2
+                    };
+                    break;
+                case 'left':
+                    offset = {
+                        top: lesson.boundary.top + lesson.boundary.height / 2 - this.tipBoundary.height / 2,
+                        left: lesson.boundary.left - this.tipBoundary.width
+                    };
+                    break;
+                default:
+                    offset = {
+                        top: lesson.boundary.top + lesson.boundary.height,
+                        left: lesson.boundary.left + lesson.boundary.width / 2 - this.tipBoundary.width / 2
+                    };
+                    break;
+            }
+            this.tipBoundary = Object.assign(this.tipBoundary, offset);
         },
         onWindowResize() {
             this.getBoundary();
         },
+        hideTutorial() {
+            this.$emit('change', false);
+            this.mask.hide();
+        },
+        showTutorial() {
+            this.$emit('change', true);
+            this.mask.show();
+        },
         onTab(index) {
-            console.log(index);
             this.current = index || 0;
             this.lessons.forEach((e, i) => {
                 index === i ? (e.float = true) : (e.float = false);
@@ -74,6 +122,19 @@ export default {
         onNextTab() {
             let index = this.current >= this.lessons.length - 1 ? this.current : ++this.current;
             this.onTab(index);
+        },
+        onSkipTutorial() {
+            this.hideTutorial();
+            this.$emit('skip', this.current);
+        },
+        onComplete() {
+            this.hideTutorial();
+            this.$emit('complete');
+        }
+    },
+    watch: {
+        show(val) {
+            val ? this.showTutorial() : this.hideTutorial();
         }
     },
     data() {

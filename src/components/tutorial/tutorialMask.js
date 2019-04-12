@@ -1,3 +1,13 @@
+/**
+ * @file tutorial 遮罩层
+ * @author Yangholmes
+ */
+
+/**
+ * 为什么遮罩层要以独立的 Vue 实例插入文档中？
+ * 因为遮罩层需要 cover 整个 body，如果遮罩层定义在某个自定义组件中，则有可能因为上下文 position 关系无法覆盖整个 body
+ */
+
 import Vue from 'vue';
 import './tutorialMask.less';
 

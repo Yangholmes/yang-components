@@ -7,8 +7,10 @@
             height: ${tipBoundary.height}px;`">
         <div>{{tip}}</div>
         <div class="operation">
-            <button @click="onPrev">上一步</button>
-            <button @click="onNext">下一步</button>
+            <button @click="onSkip" v-if="tab < total - 1">跳过</button>
+            <button @click="onPrev" v-if="tab > 0">上一步</button>
+            <button @click="onNext" v-if="tab < total - 1">下一步</button>
+            <button @click="onComplete" v-if="tab === total - 1">完成</button>
         </div>
     </div>
 </template>
@@ -19,17 +21,34 @@ export default {
         tipBoundary: {
             type: Object
         },
-        tip: {
-            type: String,
-            default: ''
+        lessons: {
+            type: Array
+        },
+        tab: {
+            type: Number,
+            default: 0
+        }
+    },
+    computed: {
+        total() {
+            return this.lessons.length;
+        },
+        tip() {
+            return this.lessons && this.lessons[this.tab] && this.lessons[this.tab].tip;
         }
     },
     methods: {
+        onSkip() {
+            this.$emit('skip');
+        },
         onPrev() {
             this.$emit('prev');
         },
         onNext() {
             this.$emit('next');
+        },
+        onComplete() {
+            this.$emit('complete');
         }
     }
 };
@@ -45,7 +64,7 @@ export default {
     // height: 5em;
 
     border-radius: 5px;
-    box-shadow: 0 0 3px 2px #aaa;
+    // box-shadow: 0 0 3px 2px #aaa;
     background-color: @backgroundColor;
 
     position: absolute;

@@ -29,11 +29,14 @@ export default {
 <style lang="less">
 .tutorial-lesson {
     position: relative;
+    display: block;
+    width: auto;
+    height: auto;
 
     &.float {
         z-index: 10001;
         background: #fff;
-        box-shadow: 0 0 3px 2px #ccc;
+        // box-shadow: 0 0 3px 2px #ccc;
         border-radius: 5px;
     }
 }

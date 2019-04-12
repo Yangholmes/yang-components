@@ -66,7 +66,8 @@ export default {
     }
     main {
         width: 100%;
-        min-height: calc( ~'100% - @{headerHeight} - @{footerHeight}' );
+        height: calc( ~'100% - @{headerHeight} - @{footerHeight}' );
+        overflow: auto;
     }
     footer {
         width: 100%;
