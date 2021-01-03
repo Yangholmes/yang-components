@@ -27,6 +27,10 @@ const routes = [{
     name: 'Tutorial',
     component: _ => import('@/components/HelloTutorial')
 }, {
+    path: '/BulletChat',
+    name: 'BulletChat',
+    component: _ => import('@/components/HelloBulletChat')
+}, {
     path: '*',
     component: {
         render(h) {

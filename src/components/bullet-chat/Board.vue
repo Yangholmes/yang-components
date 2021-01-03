@@ -25,7 +25,7 @@ export default {
     },
     watch: {
         bullets(val) {
-            if (val.length > 0) {
+            if (val && val.length > 0) {
                 this.bulletList.push(...val);
             }
         }
