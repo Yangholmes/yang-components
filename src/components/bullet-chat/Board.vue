@@ -52,17 +52,13 @@ export default {
                 return false;
             }
             return arr.map(e => {
-                let style = {};
                 let bullet = {...e};
-                Object.keys(defaultBullet.style).forEach(k => {
-                    if (!bullet.style || bullet.style[k] === undefined || bullet.style[k] === null) {
-                        style[k] = defaultBullet.style[k];
-                    }
-                });
-                const top
-                    = style.top === undefined || style.top === null
-                        ? Math.round(Math.random() * this.boundary.height)
-                        : style.top;
+                let style = {
+                    ...defaultBullet.style,
+                    ...bullet.style
+                };
+                let top = Number.parseInt(style.top, 10);
+                top = isNaN(top) ? Math.round(Math.random() * this.boundary.height) : top;
                 style.top = top + 'px';
                 return Object.assign({}, bullet, {
                     style,
@@ -80,8 +76,14 @@ export default {
             if (index === -1) {
                 return false;
             }
+            let bullet = this.bulletList[index];
+            if (bullet.top + height > this.boundary.height) {
+                console.log(this.boundary.height, height, this.boundary.height - height);
+                bullet.top = Math.floor(this.boundary.height - height);
+                bullet.style.top = bullet.top + 'px';
+            }
             this.bulletList.splice(index, 1, {
-                ...this.bulletList[index],
+                ...bullet,
                 width,
                 height
             });

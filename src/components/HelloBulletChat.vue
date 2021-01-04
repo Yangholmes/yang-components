@@ -36,7 +36,12 @@ export default {
             }
             const newBc = {
                 id: new Date().getTime(),
-                context: this.newBc
+                context: this.newBc,
+                style: {
+                    top: 213123230,
+                    color: '#0F0',
+                    fontSize: 300
+                }
             };
             this.bcList.push(newBc);
             this.bullets = [newBc];

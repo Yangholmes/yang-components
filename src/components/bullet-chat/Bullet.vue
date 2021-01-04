@@ -36,6 +36,7 @@ export default {
     },
     methods: {
         feedback() {
+            console.log(this.boundary);
             this.$emit('onFeedback', {
                 id: this._bullet.id,
                 width: this.boundary.width,
