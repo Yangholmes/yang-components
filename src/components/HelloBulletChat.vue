@@ -30,11 +30,16 @@ export default {
     },
     methods: {
         onSendBulletChat() {
-            this.bcList.push({
+            this.newBc = this.newBc.trim();
+            if (!this.newBc) {
+                return false;
+            }
+            const newBc = {
                 id: new Date().getTime(),
                 context: this.newBc
-            });
-            this.bullets = [this.newBc];
+            };
+            this.bcList.push(newBc);
+            this.bullets = [newBc];
             this.newBc = '';
         }
     }
